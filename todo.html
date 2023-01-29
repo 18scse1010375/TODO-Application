@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO APPLICATION</title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+</head>
+
+<body class="bg-primary" >
+
+<div>
+
+    <h1 class="text-center text-white ">  TODO APPLICATION     </h1>   
+
+
+<div class="card" >
+
+
+    <div  class="card-body">
+
+        <form>
+
+     <input type="text" class="form-control"  id="title"  placeholder="Enter todo title "   />
+
+     <br>
+
+     <textarea  id="desc" cols="10"   rows="10"   class="form-control" placeholder="Enter Todo description"></textarea>
+
+
+     <div class="text-center mt-3">
+
+        <button onclick="add_todo()"
+        >ADD TODO</button>
+     </div>
+
+    </form>
+
+</div>  
+
+</div>
+
+
+<br>
+
+<div id="main-content">
+    
+
+</div>
+
+
+
+
+</div>
+
+
+<script>
+  
+  const add_todo=()=>
+  {
+    
+    let title=document.getElementById('title').value
+    let desc=document.getElementById("desc").value
+
+    let todos=[]
+    let localTodos=localStorage.getItem('todos')
+    if(localTodos!=null)
+    {
+        todos=JSON.parse(localTodos)
+
+    }
+
+    let todoObject={
+        title:title  ,
+        desc:desc ,
+        id:Math.trunc(Math.random()*1000)
+       }
+    todos.push(todoObject)
+    localStorage.setItem("todos" ,   JSON.stringify(todos) );
+    show_todo();
+   
+  }
+
+
+
+ const show_todo=()  =>
+ {
+   
+    let todoString=localStorage.getItem('todos')
+    let content="";
+
+   if(todoString==null)
+   {
+     content+= "<h3 class='text-white'> NO TODO TO SHOW  </h3>"
+   }
+
+   else 
+   {
+    todos=JSON.parse(todoString)
+
+    for(let todo of todos.reverse() )
+    {
+        content += `
+
+        <div class='card mt-2'>
+
+
+            <div class='card-body'>
+
+                <h3> ${todo.title}  </h3>
+
+                <p>   ${todo.desc}  </p>
+
+                </div>
+
+
+
+            </div>     `
+
+    }
+
+   }
+
+
+
+      document.getElementById("main-content").innerHTML=content
+}
+
+show_todo();
+
+</script>
+
+
+</body>
+</html>
+    
+
+
+
+
+
+
+
+      
+
+
+
+
+     
+       
+
